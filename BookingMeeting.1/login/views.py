@@ -15,7 +15,7 @@ def index(request):
 #index page view
 def index(request):
     print("index page")
-    return render(request, "login/index.html" )
+    return render(request, "index.html" )
     
     
 
