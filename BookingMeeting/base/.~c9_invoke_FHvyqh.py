@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Room
 
 # Create your views here.
 
@@ -10,15 +9,14 @@ def home(request):
 """
 
 
-#rooms =[
-#  {'id':1, 'name': 'Let play'},
-#  {'id':2, 'name': 'Let play something'},
-#  {'id':3, 'name': 'Let play test '},
-#]
+rooms =[
+  {'id':1, 'name': 'Let play'},
+  {'id':2, 'name': 'Let play something'},
+  {'id':3, 'name': 'Let play test '},
+]
 
 
 def home(request):
-    rooms = Room.objects.all()
     context= {'rooms':rooms}
     return render(request, 'base/home.html', context)
 
@@ -29,10 +27,14 @@ def help(request):
     
 def room(request, pk):
     print("room page")
-    room =Room.objects.get(id=pk)
+    room = None
+    if(p == null) {
+        print("pk is null")
+        pk = 3
+    
+    print(type(pk))
+    for i in rooms:
+        if i['id'] == int(pk):
+            room = i
     context= {'room':room}
     return render(request, 'base/room.html', context) 
-
-
-def test(request):
-    return HttpResponse("Hello, world. You're at the login index.")
