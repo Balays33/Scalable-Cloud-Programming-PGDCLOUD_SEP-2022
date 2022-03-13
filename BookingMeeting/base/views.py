@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Room
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ def home(request):
     context= {'rooms':rooms}
     return render(request, 'base/home.html', context)
 
+@login_required(login_url='/login/login')
 def help(request):
     print("help page")
     return render(request, 'base/help.html')

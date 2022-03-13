@@ -27,19 +27,18 @@ def index(request):
 #login/registration page view
 def loginUser(request):
     print('login/registration page')
-    page = 'login'
+    #page = 'login'
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
         print('USER:',user)
-        print('test')
         if user is not None:
             login(request, user)
             return redirect('index')
     
-    return render(request, 'login/login_register.html', {'page': page})
+    return render(request, 'login/login_register.html') #, {'page': page})
     
     
     
