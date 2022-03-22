@@ -41,6 +41,12 @@ def loginUser(request):
     return render(request, 'login/login_register.html') #, {'page': page})
     
     
+def logoutUser(request):
+    print("logoutUser page")
+    logout(request)
+    return redirect('login/test.html')
+    
+     
     
 # Create your views here.
 #registration page view
@@ -56,4 +62,14 @@ def user_profile(request):
             login(request, user)
             return redirect('index')
     return render(request, "login/user_profile.html" )
+    
+
+
+#test page view
+@login_required(login_url='login')
+def test(request):
+    print("test page")
+    
+    return render(request, "login/test.html" )
+   
     
