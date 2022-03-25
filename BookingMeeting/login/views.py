@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout   #user autheticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required     # user  wants to acces a page
+from .forms import CustomUserCreationForm                     # user registration form
+#from django.contrib.auth.forms import CustomUserCreationForm
+#from django.contrib.auth.forms import UserCreationForm
 
 
+# from .models import      # import model
 from django.http import Http404
 #import requests
 
@@ -27,7 +31,7 @@ def index(request):
 #login/registration page view
 def loginUser(request):
     print('login/registration page')
-    #page = 'login'
+    page = 'login'
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -38,13 +42,31 @@ def loginUser(request):
             login(request, user)
             return redirect('index')
     
-    return render(request, 'login/login_register.html') #, {'page': page})
+    return render(request, 'login/login_register.html', {'page': page})
     
     
 def logoutUser(request):
     print("logoutUser page")
     logout(request)
-    return redirect('login/test.html')
+    return redirect('loginUser')
+
+def registerUser(request):
+    print('user registration')
+    page = 'register'
+    form = CustomUserCreationForm()
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            if user is not None:
+                login(request, user)
+                return redirect('gallery')
+
+    context = {'form': form, 'page': page}
+    return render(request, 'login/login_register.html', context)
     
      
     

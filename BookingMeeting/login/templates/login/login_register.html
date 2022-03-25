@@ -26,7 +26,7 @@
 
         <div class="login--wrapper">
 
-
+            {% if page == 'login' %}
             <form method='post' class="form">
                 {% csrf_token %}
                 <h1>Login</h1>
@@ -40,8 +40,23 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <p> If you do not have account ! <a href="{% url 'register' %}">Register</a></p>
+            </form>
+             {% else %}
+            <form method='post'>
+                <h1>Register</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p>Already have an account <a href="{% url 'login' %}">Login</a></p>
 
             </form>
+            {% endif %}
         </div>
     </div>
 </div>

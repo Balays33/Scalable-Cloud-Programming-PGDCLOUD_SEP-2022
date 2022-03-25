@@ -3,11 +3,11 @@
 {% block content %}
 {% if request.user.is_authenticated %}
     <div>
-       <p>{{request.user}}</p>
+       <p>Hello {{request.user}}</p>
        <a href="user_profile">profile</a>
    </div>
    <div>
-       <a href= ''>Logout</a>
+       <a href="{% url 'logout' %}" class="btn btn-dark btn-block btn-sm m-1">Logout</a>
    </div>
 {% else %}
      <div>
