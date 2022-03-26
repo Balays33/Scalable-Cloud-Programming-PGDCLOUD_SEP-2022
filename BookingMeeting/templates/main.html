@@ -17,6 +17,16 @@
 
 <body>
     {% include 'navbar.html' %}
+    
+    <!-- ERROR when the user is not exist-->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
      
     {% block content%}
     
