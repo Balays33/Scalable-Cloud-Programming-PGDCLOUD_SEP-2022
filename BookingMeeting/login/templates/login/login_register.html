@@ -49,12 +49,8 @@
                 <form method='post'>
                     <h1>Sign up</h1>
                     {% csrf_token %}
-                    {% for field in form %}
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
-                        {{field}}
-                    </div>
-                    {% endfor %}
+                    {{form.as_p}}
+                    
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <p>Already have an account <a href="{% url 'loginUser' %}">Login</a></p>
 

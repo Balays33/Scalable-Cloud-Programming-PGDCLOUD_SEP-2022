@@ -12,6 +12,7 @@
     
     <!-- <h5>{{room.id}} --- <a href="/room/{{room.id}}"> {{room.name}}</h5> -->
     <h5>{{room.id}} --- <a href="{% url 'room' room.id %}"> {{room.name}}
+    <p>{{room.created}}</p>
   </div>
   
   {% endfor %}

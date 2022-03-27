@@ -16,3 +16,5 @@ class CustomUserCreationForm(UserCreationForm):
             {'class': 'form-control', 'placeholder': 'Enter password...'})
         self.fields['password2'].widget.attrs.update(
             {'class': 'form-control', 'placeholder': 'Confirm password...'})
+            
+            
