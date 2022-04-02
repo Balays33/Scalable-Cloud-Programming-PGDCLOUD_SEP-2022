@@ -19,6 +19,7 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/', include('base.urls')),
+    path('calendar/', include('bookingCalendar.urls')),
     path('login/', include('login.urls')),
     path('',include('base.urls')), # this link jump to the base page
 ]

@@ -121,5 +121,3 @@ def test(request):
     print("test page")
     
     return render(request, "login/test.html" )
-   
-    

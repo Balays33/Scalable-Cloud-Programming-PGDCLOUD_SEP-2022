@@ -14,6 +14,8 @@ urlpatterns = [
     path('user_profile/<str:pk>', views.user_profile, name='user_profile'),
     path('test', views.test, name='test'),
     
+    
+    
 ]
 
 

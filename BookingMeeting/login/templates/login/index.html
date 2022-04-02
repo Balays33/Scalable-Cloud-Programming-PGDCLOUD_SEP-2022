@@ -5,20 +5,31 @@
     <div>
        <p>Hello {{request.user}}</p>
        <!--<a href="user_profile">pro file</a>-->
-       <a href="{% url 'user_profile' user %}">profile</a>
+       <div>
+           <a href="{% url 'user_profile' user %}" class="btn btn-dark btn-block btn-sm m-1">Profile</a>
+       </div>
+       
+       <div> 
+           <a href="{% url 'calendarview'  %}" class="btn btn-dark btn-block btn-sm m-1">Calendar</a>
+       </div>
+       
    </div>
+    <br>
+    <hr>
+    <br>
    <div>
        <a href="{% url 'logout' %}" class="btn btn-dark btn-block btn-sm m-1">Logout</a>
    </div>
+   
 {% else %}
      <div>
         <a href="login">LOGIN</a>
     </div>
    <hr>
 {% endif %}  
-
+<!--
 <div>
         <a href="test">TEST</a>
 </div>
-
+-->
 {% endblock content %}

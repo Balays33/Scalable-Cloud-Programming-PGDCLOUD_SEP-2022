@@ -38,3 +38,8 @@ def room(request, pk):
 
 def test(request):
     return HttpResponse("Hello, world. You're at the login index.")
+    
+    
+def welcome(request):
+    print("welcome page")
+    return render(request, 'base/welcome.html')

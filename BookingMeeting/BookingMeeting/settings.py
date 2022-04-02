@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login.apps.LoginConfig',
     'base.apps.BaseConfig',
+    #'bookingCalendar.apps.bookingCalendarConfig',
+    'bookingCalendar'
 ]
 
 MIDDLEWARE = [
