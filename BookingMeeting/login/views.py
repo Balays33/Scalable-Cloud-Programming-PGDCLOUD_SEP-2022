@@ -3,16 +3,23 @@ from django.contrib import messages                             # django flash m
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout   #user autheticate
 from django.contrib.auth.decorators import login_required     # user  wants to acces a page
-from .forms import CustomUserCreationForm                     # user registration form
+#from .forms import CustomUserCreationForm                     # user registration form
 #from django.contrib.auth.forms import CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .forms import UpdateUserForm
 
+
+#from .forms import UpdateUserForm, UpdateProfileForm
+from django.views import View
+from .forms import RegisterForm
 
 # from .models import      # import model
 from django.http import Http404
 #import requests
+
+
 
 """
 def index(request):
@@ -73,7 +80,7 @@ def registerUser(request):
             user.username = user.username.lower()
             user.save()
             login(request, user)
-            return redirect('home')
+            return redirect('index')
         else:
             messages.error(request, 'An error occurred during registration')
     
@@ -84,20 +91,7 @@ def registerUser(request):
 #registration page view
 def user_profile(request, pk):
     print("user_profile page")
-    #user= User.objects.get(id=pk)
-    #context = {'user':user}
-    
-    try:
-        print("Hello")
-        useremail = User.objects.get()
-        print("useremail:",useremail)
-        context = {'useremail':useremail}
-    except:
-        print("Something went wrong")
-        context = {}
-    else:
-        print("Nothing went wrong")
-        
+    context = {}   
     if request.method == 'POST':
         useremail = request.POST['email'].lower()
         print('useremail',useremail)
@@ -121,3 +115,27 @@ def test(request):
     print("test page")
     
     return render(request, "login/test.html" )
+    
+    
+    
+class RegisterView(View):
+    form_class = RegisterForm
+    initial = {'key': 'value'}
+    template_name = 'login/register.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}')
+
+            return redirect(to='/')
+
+        return render(request, self.template_name, {'form': form})
