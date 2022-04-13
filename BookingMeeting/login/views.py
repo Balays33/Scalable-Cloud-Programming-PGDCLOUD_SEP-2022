@@ -18,7 +18,17 @@ from .forms import RegisterForm
 # from .models import      # import model
 from django.http import Http404
 #import requests
+##########################  serializers
 
+from django.contrib.auth.models import  Group
+from rest_framework import viewsets
+from rest_framework import permissions
+from login.serializers import UserSerializer, GroupSerializer
+
+
+
+
+#############################
 
 
 """
@@ -61,10 +71,12 @@ def loginUser(request):
     return render(request, 'login/login_register.html', {'page': page})
     
     
+    
 def logoutUser(request):
     print("logoutUser page")
     logout(request)
     return redirect('loginUser')
+
 
 def registerUser(request):
     print('user registration')
@@ -91,21 +103,14 @@ def registerUser(request):
 #registration page view
 def user_profile(request, pk):
     print("user_profile page")
+    user = User.objects.get(username=pk)
+    print(User.objects.all())
+    #print(user.all())
     context = {}   
-    if request.method == 'POST':
-        useremail = request.POST['email'].lower()
-        print('useremail',useremail)
-    try:
-        user = User.objects.get(email=useremail)
-        user.save()
-    except:
-        messages.error(request, 'User does not exist')
-        print('ERROR')
-        
-    else:
-        print("Nothing went wrong")
+    
         
     return render(request, "login/user_profile.html", context )
+    
     
 
 
@@ -115,13 +120,21 @@ def test(request):
     print("test page")
     
     return render(request, "login/test.html" )
-    
-    
+
     
 class RegisterView(View):
+    print("RegisterView")
     form_class = RegisterForm
     initial = {'key': 'value'}
     template_name = 'login/register.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        # will redirect to the home page if a user tries to access the register page while logged in
+        if request.user.is_authenticated:
+            return redirect(to='/')
+
+        # else process dispatch as it otherwise normally would
+        return super(RegisterView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial=self.initial)
@@ -139,3 +152,30 @@ class RegisterView(View):
             return redirect(to='/')
 
         return render(request, self.template_name, {'form': form})
+
+
+@login_required
+def profile(request):
+    return render(request, 'login/profile.html')
+    
+    
+    
+############################ serializer
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+######################################
