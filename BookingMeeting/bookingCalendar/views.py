@@ -6,4 +6,5 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
 def calendarview(request):
-    return HttpResponse("Hello, world. You're at the login index.")
+    #return HttpResponse("Hello, world. You're at the login index.")
+    return redirect('https://calendar-project-nci.me/')
