@@ -1,11 +1,10 @@
 from django.apps import AppConfig
 
+from django.apps import AppConfig
+
 
 class LoginConfig(AppConfig):
     name = 'login'
-
-
-from django.apps import AppConfig
 
 
 class UserConfig(AppConfig):
@@ -15,3 +14,5 @@ class UserConfig(AppConfig):
     # add this
     def ready(self):
         import users.signals  # noqa
+        
+        

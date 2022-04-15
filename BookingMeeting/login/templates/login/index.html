@@ -4,7 +4,6 @@
 {% if request.user.is_authenticated %}
     <div>
        <p>Hello {{request.user}}</p>
-       <!--<a href="user_profile">pro file</a>-->
        <div>
            <a href="{% url 'user_profile' user %}" class="btn btn-dark btn-block btn-sm m-1">Profile</a>
        </div>

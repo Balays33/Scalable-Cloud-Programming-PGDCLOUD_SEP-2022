@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'base.apps.BaseConfig',
     #'bookingCalendar.apps.bookingCalendarConfig',
-    'bookingCalendar'
+    'bookingCalendar',
+    
+    ########################
+    'rest_framework',
+    ##############
 ]
 
 MIDDLEWARE = [
@@ -56,6 +60,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'BookingMeeting.urls'
 
+
+####################################
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+
+
+##########################
 
 
 TEMPLATES = [
